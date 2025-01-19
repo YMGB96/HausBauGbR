@@ -5,8 +5,7 @@
 package com.mycompany.model.classes;
 
 import com.mycompany.model.template.ModelTemplate;
-import jakarta.persistence.Embeddable;
-import java.io.Serializable;
+import jakarta.persistence.Entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,24 +17,28 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  *
- * @author masou
+ * @author Yannick
  */
 @Entity
-public class Mietvertrag extends ModelTemplate{
+public class Verantwortlichkeiten extends ModelTemplate{
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     protected long id = -1L;
-    @OneToMany(mappedBy = "mietvertrag", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     protected Set<Mietobjekt> mietobjektList = null;
     @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinColumn(name = "mieter_id")
-    protected Mieter mieter = null;
+    @JoinColumn(name = "benutzer_id")
+    protected Benutzer benutzer = null;
     
-    public Mietvertrag() { super(); }
-
+    public Verantwortlichkeiten(){
+        super();
+    }
+    
+    
+    
     @Override
     public long getId(){
         return this.id;
@@ -57,12 +60,12 @@ public class Mietvertrag extends ModelTemplate{
         this.mietobjektList = mietobjektList;
     }
     
-    public Mieter getMieter() {
-        return mieter;
+    public Benutzer getBenutzer() {
+        return benutzer;
     }
 
-    public void setMieter(Mieter mieter) {
-        this.mieter = mieter;
+    public void setBenutzer(Benutzer benutzer) {
+        this.benutzer = benutzer;
     }
     
     //Mietobjekte bearbeiten
@@ -74,33 +77,32 @@ public class Mietvertrag extends ModelTemplate{
     public void addMietobjekt(Mietobjekt m){
         if (m != null && m.hasId()){
             getMietobjektList().add(m);
-            m.setMietvertrag(this);
+            m.setVerantwortlichkeiten(this);
         }
     }
     
     public void removeMietobjekt(Mietobjekt m){
         if (hasMietobjekt()){
             getMietobjektList().remove(m);
-            m.setMietvertrag(null);
+            m.setVerantwortlichkeiten(null);
         }
     }
     
     //Mieter bearbeiten
     
-    public boolean hasMieter(){
-        return (this.mieter != null);
+    public boolean hasBenutzer(){
+        return (this.benutzer != null);
     }
     
-    public void addMieter(Mieter m){
-        if (m != null && m.hasId()){
-            this.mieter = m;
-            m.setMietvertrag(this);
+    public void addBenutzer(Benutzer b){
+        if (b != null && b.hasId()){
+            this.benutzer = b;
+            b.setVerantwortlichkeiten(this);
         }
     }
     
-    public void removeMieter(){
-        this.mieter.setMietvertrag(null);
-        this.mieter = null;
+    public void removeBenutzer(){
+        this.benutzer.setVerantwortlichkeiten(null);
+        this.benutzer = null;
     }
-        
 }

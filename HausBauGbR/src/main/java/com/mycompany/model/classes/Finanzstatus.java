@@ -6,6 +6,8 @@ package com.mycompany.model.classes;
 
 import com.mycompany.model.enums.FinanzstatusTyp;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -15,6 +17,7 @@ import java.util.Date;
 @Embeddable
 public class Finanzstatus implements Serializable{
     
+    @Enumerated(EnumType.STRING) 
     private FinanzstatusTyp finanzStatusTyp;
     private int betragEur;
     private Date datum;

@@ -8,9 +8,12 @@ import com.mycompany.model.template.ModelTemplate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;   
 import jakarta.persistence.OneToOne;
@@ -33,6 +36,9 @@ public class Benutzer extends ModelTemplate {
     private String email;
     private String benutzerName;
     private String passwort;
+    @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
+    @JoinColumn(name="verantwortlichkeiten_id")
+    protected Verantwortlichkeiten verantwortlichkeiten;
 
     public Benutzer()  { super(); }
     
@@ -126,6 +132,15 @@ public class Benutzer extends ModelTemplate {
         this.passwort = passwort;
     }
     
+    public Verantwortlichkeiten getVerantwortlichkeiten(){
+        return verantwortlichkeiten;
+    }
     
+    public void setVerantwortlichkeiten(Verantwortlichkeiten verantwortlichkeiten){
+        this.verantwortlichkeiten = verantwortlichkeiten;
+    }
     
+    public boolean hasVerantwortlichkeiten(){
+        return this.verantwortlichkeiten !=null;
+    }
 }

@@ -48,6 +48,9 @@ public class Mietobjekt extends ModelTemplate{
     @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
     @JoinColumn(name="mietvertrag_id")
     protected Mietvertrag mietvertrag = null;
+    @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
+    @JoinColumn(name="verantwortlichkeiten_id")
+    protected Verantwortlichkeiten verantwortlichkeiten;
 
     public Mietobjekt() { super(); }
     
@@ -198,6 +201,17 @@ public class Mietobjekt extends ModelTemplate{
         return this.mietvertrag !=null;
     }
     
+    public Verantwortlichkeiten getVerantwortlichkeiten(){
+        return verantwortlichkeiten;
+    }
+    
+    public void setVerantwortlichkeiten(Verantwortlichkeiten verantwortlichkeiten){
+        this.verantwortlichkeiten = verantwortlichkeiten;
+    }
+    
+    public boolean hasVerantwortlichkeiten(){
+        return this.verantwortlichkeiten !=null;
+    }
     public int nebenkostenM2(){
         return this.nebenkostenGes/this.wohnflaeche;
     }
