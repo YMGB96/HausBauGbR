@@ -15,7 +15,7 @@ public class ContextListener implements ServletContextListener
         System.out.println("---------------------------------------------"); 
         System.out.println(">>> Application-Start"); 
         System.out.println("---------------------------------------------"); 
-        System.out.println("Database --> " + HibernateUtil.getDbVersion());
+        //System.out.println("Database --> " + HibernateUtil.getDbVersion());
     }
 
     
