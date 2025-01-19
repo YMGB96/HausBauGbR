@@ -4,12 +4,26 @@
  */
 package com.mycompany.model.classes;
 
+import com.mycompany.model.template.ModelTemplate;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;   
+import jakarta.persistence.OneToOne;
 /**
  *
  * @author masou
  */
-public class Benutzer {
+@Entity
+public class Benutzer extends ModelTemplate {
     
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    protected long id = -1L;
     private Boolean istAdmin;
     private String vorname;
     private String nachname;
@@ -20,6 +34,26 @@ public class Benutzer {
     private String benutzerName;
     private String passwort;
 
+    public Benutzer()  { super(); }
+    
+    public Benutzer(Boolean istAdmin, String vorname, String nachname, Adresse anschrift, String telefonFestnetz, String telefonMobil, String email, String benutzerName, String passwort) {
+        this.istAdmin = istAdmin;
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.anschrift = anschrift;
+        this.telefonFestnetz = telefonFestnetz;
+        this.telefonMobil = telefonMobil;
+        this.email = email;
+        this.benutzerName = benutzerName;
+        this.passwort = passwort;
+    }
+
+    @Override
+    public long getId() { return this.id; }
+
+    @Override
+    public void setId(long id) { this.id = id; }
+    
     public Boolean getIstAdmin() {
         return istAdmin;
     }

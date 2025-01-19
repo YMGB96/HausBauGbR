@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.model.classes;
+package com.mycompany.model.interfaces;
 
 /**
  *
- * @author masou
+ * @author Yannick
  */
-public enum MietobjektTyp {
+public interface IdInterface
+{ 
     
-    WOHNUNG,
-    LADENLOKAL,
-    STELLPLATZ,
-    GARAGE,
-    TIEFGARAGE
+    public long getId();
     
+    public void setId(long id);
+    
+    default public boolean hasId() { return (getId() > 0); }; 
 }

@@ -4,16 +4,31 @@
  */
 package com.mycompany.model.classes;
 
+import jakarta.persistence.Embeddable;
+import java.io.Serializable;
+
 /**
  *
  * @author masou
  */
-public class Adresse {
+@Embeddable
+public class Adresse implements Serializable {
     
     private String strasse;
+    private String hausnummer;
     private String plz;
     private String ort;
     private String land;
+    
+    public Adresse() { super(); }
+
+    public Adresse(String strasse, String hausnummer, String plz, String ort, String land) {
+        this.strasse = strasse;
+        this.hausnummer = hausnummer;
+        this.plz = plz;
+        this.ort = ort;
+        this.land = land;
+    }
 
     public String getStrasse() {
         return strasse;
@@ -45,6 +60,14 @@ public class Adresse {
 
     public void setLand(String land) {
         this.land = land;
+    }
+
+    public String getHausnummer() {
+        return hausnummer;
+    }
+
+    public void setHausnummer(String hausnummer) {
+        this.hausnummer = hausnummer;
     }
     
     

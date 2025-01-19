@@ -4,14 +4,34 @@
  */
 package com.mycompany.model.classes;
 
+import com.mycompany.model.enums.MietobjektTyp;
+import com.mycompany.model.template.ModelTemplate;
+import jakarta.persistence.Embeddable;
+import java.io.Serializable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import java.time.LocalDate; 
 /**
  *
  * @author masou
  */
-public class Mietobjekt {
+@Entity
+public class Mietobjekt extends ModelTemplate{
     
-    private int ID;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    protected long id = -1L; 
     private int ObjektNr;
+    @Enumerated(EnumType.STRING) 
     private MietobjektTyp objektTyp;
     private Boolean objektPrivate;
     private String objektBeschreibung;
@@ -22,34 +42,37 @@ public class Mietobjekt {
     private String notizfeld;
     private Mietobjekt verbundenesObjekt;
     private Mieter objektMieter;
-    private Ansprechpartner ansprechpartner;
+    private Benutzer ansprechpartner;
     private Finanzstatus finanzstatus;
     private String dokument;
+    @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
+    @JoinColumn(name="mietvertrag_id")
+    protected Mietvertrag mietvertrag = null;
+
+    public Mietobjekt() { super(); }
     
-    
-    public int nebenkostenM2() {
-        return 0;
-    }
-    
-    public int m2PreisWarm() {
-        return 0;
-    }
-    
-    public int mieteKalt() {
-        return 0;
-    }
-    
-    public int mieteWarm() {
-        return 0;
+    public Mietobjekt(int ObjektNr, MietobjektTyp objektTyp, Boolean objektPrivate, String objektBeschreibung, Adresse anschrift, int wohnflaeche, int m2PreisKalt, int nebenkostenGes, String notizfeld, Mietobjekt verbundenesObjekt, Mieter objektMieter, Benutzer ansprechpartner, Finanzstatus finanzstatus, String dokument) {
+        this.ObjektNr = ObjektNr;
+        this.objektTyp = objektTyp;
+        this.objektPrivate = objektPrivate;
+        this.objektBeschreibung = objektBeschreibung;
+        this.anschrift = anschrift;
+        this.wohnflaeche = wohnflaeche;
+        this.m2PreisKalt = m2PreisKalt;
+        this.nebenkostenGes = nebenkostenGes;
+        this.notizfeld = notizfeld;
+        this.verbundenesObjekt = verbundenesObjekt;
+        this.objektMieter = objektMieter;
+        this.ansprechpartner = ansprechpartner;
+        this.finanzstatus = finanzstatus;
+        this.dokument = dokument;
     }
 
-    public int getID() {
-        return ID;
-    }
+    @Override
+    public long getId() { return this.id; }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+    @Override
+    public void setId(long id) { this.id = id; }
 
     public int getObjektNr() {
         return ObjektNr;
@@ -139,11 +162,11 @@ public class Mietobjekt {
         this.objektMieter = objektMieter;
     }
 
-    public Ansprechpartner getAnsprechpartner() {
+    public Benutzer getAnsprechpartner() {
         return ansprechpartner;
     }
 
-    public void setAnsprechpartner(Ansprechpartner ansprechpartner) {
+    public void setAnsprechpartner(Benutzer ansprechpartner) {
         this.ansprechpartner = ansprechpartner;
     }
 
@@ -162,7 +185,33 @@ public class Mietobjekt {
     public void setDokument(String dokument) {
         this.dokument = dokument;
     }
+
+    public Mietvertrag getMietvertrag() {
+        return mietvertrag;
+    }
+
+    public void setMietvertrag(Mietvertrag mietvertrag) {
+        this.mietvertrag = mietvertrag;
+    }
     
+    public boolean hasMietvertrag(){
+        return this.mietvertrag !=null;
+    }
     
+    public int nebenkostenM2(){
+        return this.nebenkostenGes/this.wohnflaeche;
+    }
     
+    public int m2PreisWarm(){
+        return this.m2PreisKalt*this.getM2PreisKalt();
+    }
+    
+    public int mieteKalt(){
+        return this.m2PreisKalt*this.wohnflaeche;
+    }
+    
+    public int mieteWarm(){
+        return (this.m2PreisKalt*this.wohnflaeche)+this.nebenkostenGes;
+    }
+
 }

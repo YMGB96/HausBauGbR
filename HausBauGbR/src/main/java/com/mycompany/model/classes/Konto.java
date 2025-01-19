@@ -4,17 +4,30 @@
  */
 package com.mycompany.model.classes;
 
+import jakarta.persistence.Embeddable;
+import java.io.Serializable;
 /**
  *
  * @author masou
  */
-public class Konto {
+@Embeddable
+public class Konto implements Serializable {
     
     private String iban;
     private String bic;
     private String inhaber;
     private String kreditinstitut;
 
+    public Konto() { super(); }
+    
+    public Konto(String iban, String bic, String inhaber, String kreditinstitut) {
+        this.iban = iban;
+        this.bic = bic;
+        this.inhaber = inhaber;
+        this.kreditinstitut = kreditinstitut;
+    }
+
+        
     public String getIban() {
         return iban;
     }
