@@ -15,7 +15,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named; 
 
-@Named(value = "mieter")
+@Named(value = "mietobjekt")
 @ViewScoped
 public class MietobjektBean extends BeanTemplate<Mietobjekt, ServiceTemplate<Mietobjekt, MietobjektDao<Mietobjekt>>>
 {

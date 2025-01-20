@@ -12,7 +12,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 
-@Named(value = "rooms") 
+@Named(value = "mietvertrag") 
 @ViewScoped  
 public class MietvertragBean extends BeanTemplate<Mietvertrag, ServiceTemplate<Mietvertrag, MietvertragDao>>
 { 
