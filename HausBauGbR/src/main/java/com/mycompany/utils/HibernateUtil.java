@@ -7,23 +7,18 @@ import com.mycompany.model.classes.Konto;
 import com.mycompany.model.classes.Mieter;
 import com.mycompany.model.classes.Mietobjekt;
 import com.mycompany.model.classes.Mietvertrag;
+import com.mycompany.model.classes.Verantwortlichkeiten;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
- 
-public class HibernateUtil 
-{
-  //-------------------------------------------------------------------------
-  //  Hibernate-SessionFactory
-  //-------------------------------------------------------------------------     
+public class HibernateUtil {
+
     private static SessionFactory sessionFactory = null;
 
-    public static SessionFactory getSessionFactory()
-    {
-        if (sessionFactory == null) 
-        {
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
             sessionFactory = new Configuration() 
                     .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect") 
                     .setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver")
@@ -41,43 +36,47 @@ public class HibernateUtil
                     .addAnnotatedClass(Mieter.class)
                     .addAnnotatedClass(Mietobjekt.class)
                     .addAnnotatedClass(Mietvertrag.class)
+                    .addAnnotatedClass(Verantwortlichkeiten.class)
                     .buildSessionFactory();
         }
         return sessionFactory; 
     }
-    
-    
-    public static Session getCurrentSession() { return getSessionFactory().getCurrentSession(); } 
-     
-    
-    public static Session openSession() { return getSessionFactory().openSession(); }
 
-    
-    public static void closeSession(Session session) { try { session.flush(); } catch(Exception e) { } try { session.close(); } catch(Exception e) { } }
- 
-    
-  //-------------------------------------------------------------------------
-  //  DB-Version
-  //-------------------------------------------------------------------------  
-    public static String getDbVersion()
-    { 
+    public static Session getCurrentSession() {
+        return getSessionFactory().getCurrentSession();
+    }
+
+    public static Session openSession() {
+        return getSessionFactory().openSession();
+    }
+
+    public static void closeSession(Session session) {
+        try {
+            session.flush();
+            session.close();
+        } catch (Exception e) {
+            System.err.println("Error flushin or closing session: " + e);
+        }
+    }
+
+    public static String getDbVersion() {
         String r = "";
         Session session = null;
-        try
-        {
+        try {
             session = getSessionFactory().openSession();
             Query query = session.createNativeQuery("SELECT Version()");
             r = (String) query.getSingleResult(); 
-        }
-        catch (Exception e) { r = null; }
-        finally  
-        { 
-            try { session.flush(); } catch(Exception e) { }
-            try { session.close(); } catch(Exception e) { }
+        } catch (Exception e) {
+            r = null;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch(Exception e) {
+                System.err.println("Error flushing or closing session: " + e);
+            }
         }
         return r;
     } 
-    
-    
-    
+
 }
