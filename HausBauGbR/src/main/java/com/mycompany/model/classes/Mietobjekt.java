@@ -6,8 +6,7 @@ package com.mycompany.model.classes;
 
 import com.mycompany.model.enums.MietobjektTyp;
 import com.mycompany.model.template.ModelTemplate;
-import jakarta.persistence.Embeddable;
-import java.io.Serializable;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,16 +14,15 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.time.LocalDate; 
+import jakarta.persistence.Table;
 /**
  *
  * @author masou
  */
 @Entity
+@Table(name = "mietobjekt")
 public class Mietobjekt extends ModelTemplate{
     
     @Id
@@ -35,6 +33,7 @@ public class Mietobjekt extends ModelTemplate{
     private MietobjektTyp objektTyp;
     private Boolean objektPrivate;
     private String objektBeschreibung;
+    @Embedded
     private Adresse anschrift;
     private int wohnflaeche;
     private int m2PreisKalt;
@@ -43,6 +42,7 @@ public class Mietobjekt extends ModelTemplate{
     private Mietobjekt verbundenesObjekt;
     private Mieter objektMieter;
     private Benutzer ansprechpartner;
+    @Embedded
     private Finanzstatus finanzstatus;
     private String dokument;
     @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 

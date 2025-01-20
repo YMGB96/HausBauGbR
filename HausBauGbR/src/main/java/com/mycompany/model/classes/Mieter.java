@@ -4,25 +4,22 @@
  */
 package com.mycompany.model.classes;
 
-import com.mycompany.model.enums.MietobjektTyp;
 import com.mycompany.model.template.ModelTemplate;
-import jakarta.persistence.Embeddable;
-import java.io.Serializable;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.time.LocalDate; 
+import jakarta.persistence.Table;
 /**
  *
  * @author masou
  */
 @Entity
+@Table(name = "mieter")
 public class Mieter extends ModelTemplate{
     
     @Id
@@ -31,10 +28,12 @@ public class Mieter extends ModelTemplate{
     private String anrede;
     private String vorname;
     private String nachname;
+    @Embedded
     private Adresse anschriftAlt;
     private String telefonFestnetz;
     private String telefonMobil;
     private String email;
+    @Embedded
     private Konto kontoverbindung;
     private Mietobjekt gemietetesObjekt;
     private String dokument;

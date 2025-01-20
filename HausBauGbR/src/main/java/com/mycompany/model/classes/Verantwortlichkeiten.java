@@ -5,7 +5,6 @@
 package com.mycompany.model.classes;
 
 import com.mycompany.model.template.ModelTemplate;
-import jakarta.persistence.Entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,8 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +22,7 @@ import java.util.Set;
  * @author Yannick
  */
 @Entity
+@Table(name = "verantwortlichkeiten")
 public class Verantwortlichkeiten extends ModelTemplate{
     
     @Id
