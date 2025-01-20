@@ -151,4 +151,8 @@ public class Mieter extends ModelTemplate{
         this.mietvertrag = mietvertrag;
     }
     
+    public boolean hasMietvertrag(){
+        return this.mietvertrag !=null;
+    }
+        
 }

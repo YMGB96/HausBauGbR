@@ -33,7 +33,7 @@ public class Mietobjekt extends ModelTemplate{
     private int ObjektNr;
     @Enumerated(EnumType.STRING) 
     private MietobjektTyp objektTyp;
-    private Boolean objektPrivate;
+    private Boolean objektPrivat;
     private String objektBeschreibung;
     private Adresse anschrift;
     private int wohnflaeche;
@@ -54,10 +54,10 @@ public class Mietobjekt extends ModelTemplate{
 
     public Mietobjekt() { super(); }
     
-    public Mietobjekt(int ObjektNr, MietobjektTyp objektTyp, Boolean objektPrivate, String objektBeschreibung, Adresse anschrift, int wohnflaeche, int m2PreisKalt, int nebenkostenGes, String notizfeld, Mietobjekt verbundenesObjekt, Mieter objektMieter, Benutzer ansprechpartner, Finanzstatus finanzstatus, String dokument) {
+    public Mietobjekt(int ObjektNr, MietobjektTyp objektTyp, Boolean objektPrivat, String objektBeschreibung, Adresse anschrift, int wohnflaeche, int m2PreisKalt, int nebenkostenGes, String notizfeld, Mietobjekt verbundenesObjekt, Mieter objektMieter, Benutzer ansprechpartner, Finanzstatus finanzstatus, String dokument) {
         this.ObjektNr = ObjektNr;
         this.objektTyp = objektTyp;
-        this.objektPrivate = objektPrivate;
+        this.objektPrivat = objektPrivat;
         this.objektBeschreibung = objektBeschreibung;
         this.anschrift = anschrift;
         this.wohnflaeche = wohnflaeche;
@@ -93,12 +93,12 @@ public class Mietobjekt extends ModelTemplate{
         this.objektTyp = objektTyp;
     }
 
-    public Boolean getObjektPrivate() {
-        return objektPrivate;
+    public Boolean getObjektPrivat() {
+        return objektPrivat;
     }
 
-    public void setObjektPrivate(Boolean objektPrivate) {
-        this.objektPrivate = objektPrivate;
+    public void setObjektPrivat(Boolean objektPrivat) {
+        this.objektPrivat = objektPrivat;
     }
 
     public String getObjektBeschreibung() {

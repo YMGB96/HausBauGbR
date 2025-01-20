@@ -8,15 +8,172 @@
                 template="/WEB-INF/template.xhtml">
 
     <ui:define name="content">
+        <style>   
+            .labelColumn { width: 115px; }
+            .imputColumn { width: 100%; } 
+        </style>              
+        
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="card">
-                    <h1>Mietobjekte</h1>
-                    <p>Blub.</p> 
+                    <h:form id="contentForm">
+                     
+                        <p:menubar>
+                            <p:menuitem value="Hinzuf&uuml;gen" icon="pi pi-plus" oncomplete="PF('dlgEdit').show();" action="#{mietobjekt.resetItem()}" update=":editModalDialogForm"/>
+                            <f:facet name="options">             
+                                <p:commandButton action="#{benutzer.doLogout()}" icon="pi pi-sign-out" style="font-size: 15px; height: 30px; width: 30px; margin-top: 3px; margin-left: 3px; vertical-align: middle;" />                                
+                            </f:facet>                        
+                        </p:menubar>         
+                        
+                        <br/>
+                        <h1 style="margin-top: 20px;"><i class="layout-menuitem-icon pi pi-fw pi-print"></i>&nbsp;Mietobjekte</h1>
+                    
+                        <p:dataTable id="itemTable" var="item" value="#{mietobjekt.itemList}" style="width: 100%;"> 
+                            <p:column headerText="Adresse" style="width: 350px;">
+                                <b><h:outputText value="#{item.anschrift}" /></b>          
+                            </p:column>                             
+                            <p:column headerText="Objekttyp">
+                                <h:outputText value="#{item.objektTyp}" />   
+                            </p:column>
+                            <p:column headerText="Mieter">
+                                <p:commandLink action="#{mietvertrag.removeMietobjekt(item)}"  update=":contentForm" rendered="#{item.hasMietvertrag()}">
+                                    <i class="pi pi-trash"></i> 
+                                    <p:confirm header="Zuordnung l&ouml;schen?" message="Sollen die Mieterzuordnung gel&ouml;scht werden?" icon="pi pi-exclamation-triangle" />
+                                </p:commandLink>                                 
+                            </p:column>
+                            <p:column style="width: 110px; text-align: center;">  
+                                <p:commandLink oncomplete="PF('dlgEdit').show();" action="#{mietobjekt.setItem(item)}" update=":editModalDialogForm">
+                                    <i class="pi pi-wrench"></i>
+                                </p:commandLink>    
+                                &nbsp;
+                                <p:commandLink oncomplete="PF('dlgRoom').show();" action="#{mietobjekt.setItem(item)}" update=":mietvertragModalDialogForm">
+                                    <i class="pi pi-folder"></i>
+                                </p:commandLink>    
+                                &nbsp;
+                                <p:commandLink action="#{mietobjekt.removeItem(item)}" update=":contentForm">
+                                    <i class="pi pi-trash"></i>
+                                    <p:confirm header="Eintrag l&ouml;schen?" message="Sollen der Eintrag gel&ouml;scht werden?" icon="pi pi-exclamation-triangle" />
+                                </p:commandLink>                                 
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <br/><br/>  
+                        <p:outputLabel value="#{mietobjekt.itemList.size()} Eintr&auml;ge gefunden." />
+                    </h:form>
+                    <br/>
+                    <br/>    
+                     
                 </div>
             </div>
         </div>
         
+<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+</p:confirmDialog>           
+
+
+<p:dialog id="editDialog" header="Eintrag" widgetVar="dlgEdit" modal="true" position="center,top" style="margin-top: 40px;">                  
+    <div style="width: 650px; margin: 10px 10px 10px 10px;">
+    <h:form id="editModalDialogForm"> 
+
+        <style type="text/css">
+            .ownerStyle.ui-autocomplete input { width:470px; } 
+        </style>       
+        
+        <p:scrollPanel mode="native" style="width:100%; height:500px;">   
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" columnClasses="labelColumn, inputColumn" style="width: 100%; margin-bottom: 15px; margin-top: 15px;"> 
+
+                <p:outputLabel for="ip_id" value="ID"/>
+                <p:inputText id="ip_id" value="#{mietobjekt.item.id}" style="width: 100%;" disabled="true"/>
+
+                <p:outputLabel for="ip_objektNr" value="ObjektNr"/>
+                <p:inputText id="ip_objektNr" value="#{mietobjekt.item.objektNr}" style="width: 100%;" required="true"  requiredMessage="Objektnummer ist erforderlich"/>
+
+                <p:outputLabel for="ip_objektTyp" value="Objekttyp"/>
+                <p:selectOneMenu id="ip_objektTyp" value="#{mietobjekt.item.objektTyp}" required="true"  requiredMessage="Typ ist erforderlich">
+                        <f:selectItem itemLabel="Wohnung" itemValue="WOHNUNG"/>
+                        <f:selectItem itemLabel="Ladenlokal" itemValue="LADENLOKAL"/>
+                        <f:selectItem itemLabel="Stellplatz" itemValue="STELLPLATZ"/>
+                        <f:selectItem itemLabel="Garage" itemValue="GARAGE"/>
+                        <f:selectItem itemLabel="Tiefgarage" itemValue="TIEFGARAGE"/>
+                        <f:selectItem itemLabel="Sonstiges" itemValue="SONSTIGES"/>
+                </p:selectOneMenu>
+                
+                <p:selectBooleanCheckbox value="#{mietobjekt.item.objektPrivat}" itemLabel="Privatnutzung?"/>
+                
+                <p:outputLabel for="ip_objektBeschreibung" value="Objektbeschreibung"/>
+                <p:inputText id="ip_objektBeschreibung" value="#{mietobjekt.item.objektBeschreibung}" style="width: 100%;"/>
+
+                <p:outputLabel for="ip_strasse" value="Straße"/>
+                <p:inputText id="ip_strasse" value="#{mietobjekt.item.anschrift.strasse}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_plz" value="Postleitzahl"/>
+                <p:inputText id="ip_plz" value="#{mietobjekt.item.anschrift.plz}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_ort" value="Ort"/>
+                <p:inputText id="ip_ort" value="#{mietobjekt.item.anschrift.ort}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_land" value="Land"/>
+                <p:inputText id="ip_land" value="#{mietobjekt.item.anschrift.land}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_wohnflaeche" value="Wohnfläche in qm"/>
+                <p:inputText id="ip_wohnflaeche" value="#{mietobjekt.item.wohnflaeche}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_m2PreisKalt" value="Kaltmiete pro qm"/>
+                <p:inputText id="ip_m2PreisKalt" value="#{mietobjekt.item.m2PreisKalt}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_nebenkostenGes" value="Nebenkosten"/>
+                <p:inputText id="ip_nebenkostenGes" value="#{mietobjekt.item.nebenkostenGes}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_notizfeld" value="Notizfeld"/>
+                <p:inputText id="ip_notizfeld" value="#{mietobjekt.item.notizfeld}" style="width: 100%;"/>  
+            </p:panelGrid>   
+        </p:scrollPanel>
+        <br/><br/>                      
+  
+        <p:commandButton value="Speichern" style="width: 120px;" action="#{mietobjekt.saveItem()}" oncomplete="PF('dlgEdit').hide();" update=":contentForm, messageBox"/>  
+        &nbsp;
+        <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgEdit').hide();" immediate="true"/>  
+    </h:form>                           
+    </div>               
+</p:dialog>     
+  
+        
+<p:dialog id="mietvertragDialog" header="Mietvertrag" widgetVar="dlgRoom" modal="true" position="center,top" style="margin-top: 40px;">                  
+    <div style="width: 650px; margin: 10px 10px 10px 10px;">
+    <h:form id="mietvertragModalDialogForm"> 
+
+        <style type="text/css">
+            .ownerStyle.ui-autocomplete input { width:470px; } 
+        </style>       
+        
+        <p:scrollPanel mode="native" style="width:100%; height:500px;">   
+
+            <p:dataTable id="mietvertragTable" var="mietvertragItem" value="#{mietvertrag.itemList}" style="width: 100%;"> 
+                <p:column headerText="Bezeichnung">
+                    <b><h:outputText value="#{mietvertragItem.bezeichnung}" /></b>          
+                </p:column>                             
+                <p:column headerText="Typ">
+                    <h:outputText value="#{mietvertragItem.typ}" />   
+                </p:column>
+                <p:column style="width: 110px; text-align: center;"> 
+                    <p:commandLink action="#{mietvertrag.addMietobjekt(mietvertragItem, mietobjekt.item)}" update=":contentForm" oncomplete="PF('dlgRoom').hide();" >
+                        <i class="pi pi-plus"></i>
+                    </p:commandLink>                                 
+                </p:column>
+            </p:dataTable>
+            
+        </p:scrollPanel>
+        <br/><br/>                      
+  
+        <p:commandButton value="Zuordnen" style="width: 120px;" action="#{mietobjekt.saveItem()}" oncomplete="PF('dlgRoom').hide();" update=":contentForm, messageBox"/>  
+        &nbsp;
+        <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgRoom').hide();" immediate="true"/>  
+    </h:form>                           
+    </div>               
+</p:dialog>     
+          
     </ui:define>
 
 </ui:composition>

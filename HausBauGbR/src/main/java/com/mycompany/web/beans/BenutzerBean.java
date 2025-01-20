@@ -61,7 +61,7 @@ public class BenutzerBean extends BeanTemplate<Benutzer, BenutzerService>
         HttpSession websession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true); 
         websession.setAttribute("MyLoginObject", true); 
         // The return parameter is the navigation path to the next website.
-        return "backend/empty.xhtml?faces-redirect=true"; 
+        return "backend/landing.xhtml?faces-redirect=true"; 
     } 
     
     public String doLogout() 
