@@ -11,7 +11,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 
-@Named(value = "verantwortlichkeit") 
+@Named(value = "verantwortlichkeiten") 
 @ViewScoped  
 public class VerantwortlichkeitenBean extends BeanTemplate<Verantwortlichkeiten, ServiceTemplate<Verantwortlichkeiten, VerantwortlichkeitenDao>>
 { 
