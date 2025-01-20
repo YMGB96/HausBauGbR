@@ -12,9 +12,9 @@
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes" />
-            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/layout.css" />
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/layout.css?id=1234" />
         </f:facet>
-        <title>HHBK Userstory <ui:insert name="title"></ui:insert></title>  
+        <title>HausBau GbR <ui:insert name="title"></ui:insert></title>  
     </h:head>
 
     <h:body styleClass="main-body">
@@ -23,8 +23,8 @@
         
         <div class="wrapper"> 
 
+            <ui:include src="topbar.xhtml" />
             <ui:include src="sidebar.xhtml" />
-
             <div class="main">
                 <ui:insert name="content"/>
             </div>

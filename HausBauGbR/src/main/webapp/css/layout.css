@@ -1615,24 +1615,27 @@ html {
     right: 0;
     left: 250px;
     height: 50px;
-    background-color: #0388e5;
+    background-color: #1d2650;
     padding: .7em 1.5em 0em 1.5em;
     box-sizing: border-box;
-    color: #ffffff;
+    color: #1d2650;
     z-index: 101; }
     .wrapper .topbar .topbar-title {
       display: inline-block;
       font-size: 20px;
       margin: 5px 0 0 15px;
-      vertical-align: top; }
+      vertical-align: top;
+    }
+    
     .wrapper .topbar #topbar-icons {
-      float: right;
+      float: left;
       display: block;
       -moz-animation-duration: .5s;
       -webkit-animation-duration: .5s;
       animation-duration: .5s; }
       .wrapper .topbar #topbar-icons a {
         position: relative;
+        float: left;
         color: #ffffff;
         margin-left: 20px;
         display: inline-block;
@@ -2320,7 +2323,7 @@ h2 {
     color: #77c7ff; }
 .landing-wrapper .landing-header {
   height: 80px;
-  background-color: #0388e5;
+  background-color: #1d2650;
   position: fixed;
   left: 0;
   width: 100%;
@@ -2534,7 +2537,7 @@ h2 {
     display: block; }
   .landing-wrapper .landing-header {
     height: 80px;
-    background-color: #0388e5; }
+    background-color: #1d2650; }
     .landing-wrapper .landing-header .landing-header-content {
       width: 100%;
       padding: 30px 20px 0 20px; }
@@ -3273,7 +3276,7 @@ h2 {
     -moz-osx-font-smoothing: grayscale;
     text-indent: 0px !important;
     text-align: center;
-    color: #0388e5; }
+    color: #1d2650; }
     .ui-carousel .ui-carousel-page-links .ui-icon.ui-icon-radio-on:before {
       content: ""; }
 
