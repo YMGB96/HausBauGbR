@@ -25,7 +25,7 @@ public class Benutzer extends ModelTemplate {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     protected long id = -1L;
-    private boolean istAdmin;
+    private Boolean istAdmin;
     private String vorname;
     private String nachname;
     @Embedded
