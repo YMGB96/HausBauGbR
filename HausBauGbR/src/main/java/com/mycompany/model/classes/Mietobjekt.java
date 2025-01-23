@@ -31,7 +31,7 @@ public class Mietobjekt extends ModelTemplate{
     private int ObjektNr;
     @Enumerated(EnumType.STRING) 
     private MietobjektTyp objektTyp;
-    private Boolean objektPrivate;
+    private boolean objektPrivate;
     private String objektBeschreibung;
     @Embedded
     private Adresse anschrift;

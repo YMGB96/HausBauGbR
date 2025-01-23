@@ -1,6 +1,7 @@
 package com.mycompany.web.beans;
  
 
+import com.mycompany.model.classes.Adresse;
 import com.mycompany.model.classes.Benutzer;
 import com.mycompany.services.BenutzerService;
 import java.util.Arrays;
@@ -24,7 +25,14 @@ public class BenutzerBean extends BeanTemplate<Benutzer, BenutzerService>
     @PostConstruct
     public void init()
     { 
-        resetItem(); 
+        resetItem();
+        Adresse adresse1 = new Adresse("Teststraße", "86", "12345", "Testort", "Testland");
+        Benutzer benutzer1 = new Benutzer(true, "admin", "admin", adresse1, "123456", "0049123456789", "admin@admin.com", "admin", "admin");
+        Benutzer benutzer2 = new Benutzer(false, "user", "user", adresse1, "654321", "0049987654321", "user@user.com", "user", "user");
+        getItemList().add(benutzer1);
+        getItemList().add(benutzer2);
+        saveItem(benutzer1);
+        saveItem(benutzer2);
     }
 
 
