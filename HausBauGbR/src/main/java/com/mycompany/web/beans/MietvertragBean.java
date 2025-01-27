@@ -24,11 +24,7 @@ public class MietvertragBean extends BeanTemplate<Mietvertrag, ServiceTemplate<M
     @PostConstruct
     public void init()
     { 
-        resetItem(); 
-//        getItemList().add(new Raum("A120", "IT Fachraum"));
-//        getItemList().add(new Raum("A121", "Lehrerzimmer"));
-//        getItemList().add(new Raum("A122", "IT Fachraum"));
-//        getItemList().add(new Raum("A123", "IT Fachraum"));
+        resetItem();
     }
  
  
@@ -49,7 +45,7 @@ public class MietvertragBean extends BeanTemplate<Mietvertrag, ServiceTemplate<M
         }
     }
     
-    public void removeBetreuung(Mietvertrag mv)
+    public void removeMieter(Mietvertrag mv)
     {
         if (mv == null || !mv.hasMieter()) { return; }
         try        
@@ -70,7 +66,7 @@ public class MietvertragBean extends BeanTemplate<Mietvertrag, ServiceTemplate<M
   //-------------------------------------------------------------------------
   //  Mietobjekt
   //-------------------------------------------------------------------------  
-    public void addHardware(Mietvertrag mv, Mietobjekt mo)
+    public void addMietobjekt(Mietvertrag mv, Mietobjekt mo)
     {
         try        
         {
@@ -84,7 +80,7 @@ public class MietvertragBean extends BeanTemplate<Mietvertrag, ServiceTemplate<M
         } 
     }
     
-    public void removeHardware(Mietobjekt mo)
+    public void removeMietobjekt(Mietobjekt mo)
     { 
         if (mo == null || !mo.hasMietvertrag()) { return; }
         try        

@@ -23,11 +23,7 @@ public class VerantwortlichkeitenBean extends BeanTemplate<Verantwortlichkeiten,
     @PostConstruct
     public void init()
     { 
-        resetItem(); 
-//        getItemList().add(new Raum("A120", "IT Fachraum"));
-//        getItemList().add(new Raum("A121", "Lehrerzimmer"));
-//        getItemList().add(new Raum("A122", "IT Fachraum"));
-//        getItemList().add(new Raum("A123", "IT Fachraum"));
+        resetItem();
     }
  
  
@@ -69,7 +65,7 @@ public class VerantwortlichkeitenBean extends BeanTemplate<Verantwortlichkeiten,
   //-------------------------------------------------------------------------
   //  Mietobjekt
   //-------------------------------------------------------------------------  
-    public void addHardware(Verantwortlichkeiten v, Mietobjekt mo)
+    public void addMietobjekt(Verantwortlichkeiten v, Mietobjekt mo)
     {
         try        
         {
@@ -83,7 +79,7 @@ public class VerantwortlichkeitenBean extends BeanTemplate<Verantwortlichkeiten,
         } 
     }
     
-    public void removeHardware(Mietobjekt mo)
+    public void removeMietobjekt(Mietobjekt mo)
     { 
         if (mo == null || !mo.hasMietvertrag()) { return; }
         try        

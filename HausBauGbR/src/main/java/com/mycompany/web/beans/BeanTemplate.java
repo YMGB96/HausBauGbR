@@ -98,27 +98,23 @@ public abstract class BeanTemplate<T extends ModelTemplate, S extends ServiceTem
         this.item = null;
     }
 
-    public void saveItem(T item) {
-        if (item == null) {
-            return;
-        }
-        if (!item.hasId()) {
-            resetItemList();
-        }
-        try {
-            if (getService().getDao().save(item) > 0) {
-                handleInfo("OK", "Eintrag gespeichert.");
-            }
-        } catch (Exception e) {
+    public void saveItem(T item)
+    {
+        if (item == null) { return; } 
+        if (!item.hasId()) { resetItemList(); }
+        try        
+        {
+            if (getService().getDao().save(item) > 0) { handleInfo("OK", "Eintrag gespeichert."); } 
+        } 
+        catch (Exception e)
+        {
             System.out.println(">>> ERROR --> " + e.getMessage());
             handleException("Fehler", e);
         }
-        resetItemList();
+        resetItemList(); 
     }
-
-    public void saveItem() {
-        saveItem(this.item);
-    }
+    
+    public void saveItem() { saveItem(this.item); } 
 
     public void removeItem(T item) {
         try {

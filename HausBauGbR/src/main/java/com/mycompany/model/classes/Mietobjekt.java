@@ -28,46 +28,43 @@ public class Mietobjekt extends ModelTemplate{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     protected long id = -1L; 
-    private int ObjektNr;
+    private int objektNr = 0;
     @Enumerated(EnumType.STRING) 
-    private MietobjektTyp objektTyp;
-    private boolean objektPrivate;
-    private String objektBeschreibung;
+    private MietobjektTyp objektTyp = null;
+    private boolean objektPrivat = true;
+    private String objektBeschreibung = null;
     @Embedded
-    private Adresse anschrift;
-    private int wohnflaeche;
-    private int m2PreisKalt;
-    private int nebenkostenGes;
-    private String notizfeld;
-    private Mietobjekt verbundenesObjekt;
-    private Mieter objektMieter;
-    private Benutzer ansprechpartner;
+    private Adresse anschrift = null;
+    private int wohnflaeche = 0;
+    private int m2PreisKalt = 0;
+    private int nebenkostenGes = 0;
+    private String notizfeld = null;
+    private Mietobjekt verbundenesObjekt = null;
+    private Mieter objektMieter = null;
+    private Benutzer ansprechpartner = null;
     @Embedded
-    private Finanzstatus finanzstatus;
-    private String dokument;
+    private Finanzstatus finanzstatus = null;
+    private String dokument = null;
     @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
     @JoinColumn(name="mietvertrag_id")
     protected Mietvertrag mietvertrag = null;
     @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
     @JoinColumn(name="verantwortlichkeiten_id")
-    protected Verantwortlichkeiten verantwortlichkeiten;
+    protected Verantwortlichkeiten verantwortlichkeiten = null;
 
     public Mietobjekt() { super(); }
     
-    public Mietobjekt(int ObjektNr, MietobjektTyp objektTyp, Boolean objektPrivate, String objektBeschreibung, Adresse anschrift, int wohnflaeche, int m2PreisKalt, int nebenkostenGes, String notizfeld, Mietobjekt verbundenesObjekt, Mieter objektMieter, Benutzer ansprechpartner, Finanzstatus finanzstatus, String dokument) {
-        this.ObjektNr = ObjektNr;
+    public Mietobjekt(int ObjektNr, MietobjektTyp objektTyp, Boolean objektPrivat, String objektBeschreibung, Adresse anschrift, int wohnflaeche, int m2PreisKalt, int nebenkostenGes, String notizfeld, String dokument) {
+        super();
+        this.objektNr = ObjektNr;
         this.objektTyp = objektTyp;
-        this.objektPrivate = objektPrivate;
+        this.objektPrivat = objektPrivat;
         this.objektBeschreibung = objektBeschreibung;
         this.anschrift = anschrift;
         this.wohnflaeche = wohnflaeche;
         this.m2PreisKalt = m2PreisKalt;
         this.nebenkostenGes = nebenkostenGes;
         this.notizfeld = notizfeld;
-        this.verbundenesObjekt = verbundenesObjekt;
-        this.objektMieter = objektMieter;
-        this.ansprechpartner = ansprechpartner;
-        this.finanzstatus = finanzstatus;
         this.dokument = dokument;
     }
 
@@ -78,11 +75,11 @@ public class Mietobjekt extends ModelTemplate{
     public void setId(long id) { this.id = id; }
 
     public int getObjektNr() {
-        return ObjektNr;
+        return objektNr;
     }
 
     public void setObjektNr(int ObjektNr) {
-        this.ObjektNr = ObjektNr;
+        this.objektNr = ObjektNr;
     }
 
     public MietobjektTyp getObjektTyp() {
@@ -93,12 +90,12 @@ public class Mietobjekt extends ModelTemplate{
         this.objektTyp = objektTyp;
     }
 
-    public Boolean getObjektPrivate() {
-        return objektPrivate;
+    public Boolean getObjektPrivat() {
+        return objektPrivat;
     }
 
-    public void setObjektPrivate(Boolean objektPrivate) {
-        this.objektPrivate = objektPrivate;
+    public void setObjektPrivat(Boolean objektPrivat) {
+        this.objektPrivat = objektPrivat;
     }
 
     public String getObjektBeschreibung() {

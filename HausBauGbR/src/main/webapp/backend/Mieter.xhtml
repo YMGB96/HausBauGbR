@@ -6,7 +6,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
-
+    
+    <ui:define name="title">Mieter</ui:define>
+    
     <ui:define name="content">
         <style>   
             .labelColumn { width: 115px; }
@@ -46,8 +48,8 @@
                                     <i class="pi pi-wrench"></i>
                                 </p:commandLink>    
                                 &nbsp;
-                                <p:commandLink oncomplete="PF('dlgRoom').show();" action="#{mieter.setItem(item)}" update=":roomModalDialogForm">
-                                    <i class="pi pi-home"></i>
+                                <p:commandLink oncomplete="PF('dlgMietvertrag').show();" action="#{mieter.setItem(item)}" update=":mietvertragModalDialogForm">
+                                    <i class="pi pi-folder"></i>
                                 </p:commandLink>    
                                 &nbsp;
                                 <p:commandLink action="#{mieter.removeItem(item)}" update=":contentForm">
@@ -87,50 +89,45 @@
                 <p:outputLabel for="ip_id" value="ID"/>
                 <p:inputText id="ip_id" value="#{mieter.item.id}" style="width: 100%;" disabled="true"/>
 
-                <p:outputLabel for="ip_hersteller" value="Hersteller"/>
-                <p:inputText id="ip_hersteller" value="#{mieter.item.hersteller}" style="width: 100%;" required="true"  requiredMessage="Hersteller ist erforderlich"/>
+                <p:outputLabel for="ip_anrede" value="anrede"/>
+                <p:inputText id="ip_anrede" value="#{mieter.item.anrede}" style="width: 100%;"/>
 
-                <p:outputLabel for="ip_modell" value="Modell"/>
-                <p:inputText id="ip_modell" value="#{mieter.item.modell}" style="width: 100%;" required="true"  requiredMessage="Modell ist erforderlich"/>
-
-                <p:outputLabel for="ip_sn" value="Seriennummer"/>
-                <p:inputText id="ip_sn" value="#{mieter.item.seriennummer}" style="width: 100%;"/>
-
-                <p:outputLabel for="ip_status" value="Status"/>
-                <p:selectOneMenu id="ip_status" value="#{mieter.item.status}">
-                        <f:selectItem itemLabel="" itemValue=""/>
-                        <f:selectItem itemLabel="OK" itemValue="OK"/>
-                        <f:selectItem itemLabel="In Reparatur" itemValue="InReparatur"/>
-                        <f:selectItem itemLabel="Defekt" itemValue="Defekt"/>
-                </p:selectOneMenu>            
-
-                <p:outputLabel for="ip_herstellergarantie" value="Herstellergarantie (Monate)"/>
-                <p:inputText id="ip_herstellergarantie" value="#{mieter.item.herstellergarantie}"/>
-
-                <p:outputLabel for="ip_lieferdatum" value="Lieferdatum"/>
-                <p:datePicker id="ip_lieferdatum" value="#{mieter.item.lieferdatum}" showIcon="true"/>
-
-                <p:outputLabel for="ip_cpu" value="CPU"/>
-                <p:inputText id="ip_cpu" value="#{mieter.item.cpu}" style="width: 100%;"/>
+                <p:outputLabel for="ip_vorname" value="Vorname"/>
+                <p:inputText id="ip_vorname" value="#{mieter.item.vorname}" style="width: 100%;" required="true"  requiredMessage="Vorname ist erforderlich"/>
                 
-                <p:outputLabel for="ip_ram" value="Arbeitsspeicher"/>
-                <p:inputText id="ip_ram" value="#{mieter.item.arbeitsspeicher}" style="width: 100%;"/>
+                <p:outputLabel for="ip_Nachname" value="Nachname"/>
+                <p:inputText id="ip_Nachname" value="#{mieter.item.nachname}" style="width: 100%;" required="true"  requiredMessage="Nachname ist erforderlich"/>
                 
-                <p:outputLabel for="ip_os" value="Betriebssystem"/>
-                <p:inputText id="ip_os" value="#{mieter.item.betriebssystem}" style="width: 100%;"/>
+                <p:outputLabel for="ip_strasse" value="Straße"/>
+                <p:inputText id="ip_strasse" value="#{mieter.item.anschriftAlt.strasse}" style="width: 100%;"/>
                 
-                <p:outputLabel for="ip_typ" value="Typ"/>
-                <p:inputText id="ip_typ" value="#{mieter.item.typ}" style="width: 100%;"/>
+                <p:outputLabel for="ip_plz" value="Postleitzahl"/>
+                <p:inputText id="ip_plz" value="#{mieter.item.anschriftAlt.plz}" style="width: 100%;"/>
                 
-                <p:outputLabel for="ip_vga" value="Grafikkarte"/>
-                <p:inputText id="ip_vga" value="#{mieter.item.grafikkarte}" style="width: 100%;"/>
+                <p:outputLabel for="ip_ort" value="Ort"/>
+                <p:inputText id="ip_ort" value="#{mieter.item.anschriftAlt.ort}" style="width: 100%;"/>
                 
-                <p:outputLabel for="ip_ssd" value="SSD Anzahl"/>
-                <p:inputText id="ip_ssd" value="#{mieter.item.ssd}" style="width: 100%;"/>
+                <p:outputLabel for="ip_land" value="Land"/>
+                <p:inputText id="ip_land" value="#{mieter.item.anschriftAlt.land}" style="width: 100%;"/>
                 
-                <p:outputLabel for="ip_hdd" value="HDD Anzahl"/>
-                <p:inputText id="ip_hdd" value="#{mieter.item.hdd}" style="width: 100%;"/>
-                 
+                <p:outputLabel for="ip_festnetz" value="Tel. Festnetz"/>
+                <p:inputText id="ip_festnetz" value="#{mieter.item.telefonFestnetz}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_mobil" value="Tel. Mobil"/>
+                <p:inputText id="ip_mobil" value="#{mieter.item.telefonMobil}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_iban" value="IBan"/>
+                <p:inputText id="ip_iban" value="#{mieter.item.kontoverbindung.iban}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_bic" value="BIC"/>
+                <p:inputText id="ip_bic" value="#{mieter.item.kontoverbindung.bic}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_inhaber" value="Inhaber"/>
+                <p:inputText id="ip_inhaber" value="#{mieter.item.kontoverbindung.inhaber}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_kreditinstitut" value="Kreditinstitut"/>
+                <p:inputText id="ip_kreditinstitut" value="#{mieter.item.kontoverbindung.kreditinstitut}" style="width: 100%;"/>
+                
             </p:panelGrid>   
         </p:scrollPanel>
         <br/><br/>                      
@@ -143,9 +140,9 @@
 </p:dialog>     
   
         
-<p:dialog id="roomDialog" header="R&auml;ume" widgetVar="dlgRoom" modal="true" position="center,top" style="margin-top: 40px;">                  
+<p:dialog id="mietvertragDialog" header="Mietvertrag" widgetVar="dlgMietvertrag" modal="true" position="center,top" style="margin-top: 40px;">                  
     <div style="width: 650px; margin: 10px 10px 10px 10px;">
-    <h:form id="roomModalDialogForm"> 
+    <h:form id="mietvertragModalDialogForm"> 
 
         <style type="text/css">
             .ownerStyle.ui-autocomplete input { width:470px; } 
@@ -153,15 +150,12 @@
         
         <p:scrollPanel mode="native" style="width:100%; height:500px;">   
 
-            <p:dataTable id="roomTable" var="roomItem" value="#{rooms.itemList}" style="width: 100%;"> 
-                <p:column headerText="Bezeichnung">
-                    <b><h:outputText value="#{roomItem.bezeichnung}" /></b>          
+            <p:dataTable id="mietvertragTable" var="mietvertragItem" value="#{mietvertrag.itemList}" style="width: 100%;"> 
+                <p:column headerText="ID">
+                    <b><h:outputText value="#{mietvertragItem.id}" /></b>          
                 </p:column>                             
-                <p:column headerText="Typ">
-                    <h:outputText value="#{roomItem.typ}" />   
-                </p:column>
                 <p:column style="width: 110px; text-align: center;"> 
-                    <p:commandLink action="#{rooms.addHardware(roomItem, computer.item)}" update=":contentForm" oncomplete="PF('dlgRoom').hide();" >
+                    <p:commandLink action="#{mietvertrag.addMieter(mietvertragItem, mieter.item)}" update=":contentForm" oncomplete="PF('dlgMietvertrag').hide();" >
                         <i class="pi pi-plus"></i>
                     </p:commandLink>                                 
                 </p:column>
@@ -170,12 +164,12 @@
         </p:scrollPanel>
         <br/><br/>                      
   
-        <p:commandButton value="Zuordnen" style="width: 120px;" action="#{computer.saveItem()}" oncomplete="PF('dlgRoom').hide();" update=":contentForm, messageBox"/>  
+        <p:commandButton value="Zuordnen" style="width: 120px;" action="#{mietobjekt.saveItem()}" oncomplete="PF('dlgMietvertrag').hide();" update=":contentForm, messageBox"/>  
         &nbsp;
-        <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgRoom').hide();" immediate="true"/>  
+        <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgMietvertrag').hide();" immediate="true"/>  
     </h:form>                           
     </div>               
-</p:dialog>     
+</p:dialog>        
           
     </ui:define>
 
