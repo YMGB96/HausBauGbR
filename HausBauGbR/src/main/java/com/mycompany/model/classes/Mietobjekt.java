@@ -42,7 +42,7 @@ public class Mietobjekt extends ModelTemplate{
     protected Mieter objektMieter = null;
     protected Benutzer ansprechpartner = null;
     @Embedded
-    protected Finanzstatus finanzstatus = null;
+    protected Finanzstatus finanzstatus = new Finanzstatus();
     protected String dokument = null;
     @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
     @JoinColumn(name="mietvertrag_id")
@@ -171,6 +171,7 @@ public class Mietobjekt extends ModelTemplate{
     }
 
     public Finanzstatus getFinanzstatus() {
+        if (finanzstatus == null){finanzstatus = new Finanzstatus();}
         return finanzstatus;
     }
 

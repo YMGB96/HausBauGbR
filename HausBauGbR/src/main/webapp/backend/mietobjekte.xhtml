@@ -31,7 +31,7 @@
                         <h1 style="margin-top: 20px;"><i class="layout-menuitem-icon pi pi-fw pi-print"></i>&nbsp;Mietobjekte</h1>
                     
                         <p:dataTable id="itemTable" var="item" value="#{mietobjekt.itemList}" style="width: 100%;">
-                            <p:column headerText="Objektnummer" style="width: 350px;">
+                            <p:column headerText="Objektnummer" style="width: 200px;">
                                 <b><h:outputText value="#{item.objektNr}" /></b>          
                             </p:column> 
                             <p:column headerText="Ort" style="width: 350px;">
@@ -230,13 +230,20 @@
             .ownerStyle.ui-autocomplete input { width:470px; } 
         </style>       
         
-        <p:scrollPanel mode="native" style="width:100%; height:500px;">   
-
+        <p:panel style="width:100%; height:500px;" header="Zeitraum">   
+            <div class="field col-12 md:col-4">
+                <p:outputLabel for="startMonth" value="Von?     " />
+                <p:datePicker id="startMonth" view="month" value="" pattern="MM/yyyy" yearNavigator="true" yearRange="1900:2099" />
+            </div>
+            <div class="field col-12 md:col-4">
+                <p:outputLabel for="endMonth" value="Bis?       " />
+                <p:datePicker id="endMonth" view="month" value="" pattern="MM/yyyy" yearNavigator="true" yearRange="1900:2099" />
+            </div>
             
-        </p:scrollPanel>
+        </p:panel>
         <br/><br/>                      
   
-        <p:commandButton value="Zuordnen" style="width: 120px;" action="#{mietobjekt.saveItem()}" oncomplete="PF('dlgReport').hide();" update=":contentForm, messageBox"/>  
+        <p:commandButton value="Report erstellen" style="width: 120px;" oncomplete="PF('dlgReport').hide();" update=":contentForm, messageBox"/>  
         &nbsp;
         <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgReport').hide();" immediate="true"/>  
     </h:form>                           
@@ -244,7 +251,7 @@
 </p:dialog>
 
 <p:dialog id="finanzenDialog" header="Finanzen" widgetVar="dlgFinanzen" modal="true" position="center,top" style="margin-top: 40px;">                  
-    <div style="width: 650px; margin: 10px 10px 10px 10px;">
+    <div style="width: 1650px; margin: 10px 10px 10px 10px;">
     <h:form id="finanzenModalDialogForm"> 
 
         <style type="text/css">

@@ -29,12 +29,12 @@ public class Mieter extends ModelTemplate{
     private String vorname;
     private String nachname;
     @Embedded
-    private Adresse anschriftAlt;
+    private Adresse anschriftAlt = new Adresse();
     private String telefonFestnetz;
     private String telefonMobil;
     private String email;
     @Embedded
-    private Konto kontoverbindung;
+    private Konto kontoverbindung = new Konto();
     private Mietobjekt gemietetesObjekt;
     private String dokument;
     @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
@@ -87,6 +87,7 @@ public class Mieter extends ModelTemplate{
     }
 
     public Adresse getAnschriftAlt() {
+        if (anschriftAlt == null) {anschriftAlt = new Adresse();}
         return anschriftAlt;
     }
 
@@ -119,6 +120,7 @@ public class Mieter extends ModelTemplate{
     }
 
     public Konto getKontoverbindung() {
+        if (kontoverbindung == null) {kontoverbindung = new Konto();}
         return kontoverbindung;
     }
 
