@@ -70,7 +70,11 @@ public class Adresse implements Serializable {
         this.hausnummer = hausnummer;
     }
     
-    
+    @Override
+    public String toString()
+    {
+        return ((strasse != null) ? strasse : "") + ((hausnummer != null) ? " "+hausnummer : "") + ",  " + ((plz != null) ? plz : "") + " " + ((ort != null) ? ort : "")+ " " + ((land != null) ? land : "");
+    }
 }
 
 

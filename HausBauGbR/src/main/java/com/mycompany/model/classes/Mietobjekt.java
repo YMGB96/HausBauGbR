@@ -6,7 +6,6 @@ package com.mycompany.model.classes;
 
 import com.mycompany.model.enums.MietobjektTyp;
 import com.mycompany.model.template.ModelTemplate;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -17,6 +16,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 /**
  *
  * @author masou
@@ -41,8 +42,10 @@ public class Mietobjekt extends ModelTemplate{
     protected Mietobjekt verbundenesObjekt = null;
     protected Mieter objektMieter = null;
     protected Benutzer ansprechpartner = null;
-    @Embedded
-    protected Finanzstatus finanzstatus = null;
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "finanzstatus_id", nullable = true)
+    protected Finanzstatus finanzstatus;
     protected String dokument = null;
     @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
     @JoinColumn(name="mietvertrag_id")

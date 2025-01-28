@@ -25,29 +25,27 @@ public class Mieter extends ModelTemplate{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     protected long id = -1L; 
-    private String anrede;
-    private String vorname;
-    private String nachname;
+    protected String anrede;
+    protected String vorname;
+    protected String nachname;
+    protected Adresse anschriftAlt = new Adresse();;
+    protected String telefonFestnetz;
+    protected String telefonMobil;
+    protected String email;
     @Embedded
-    private Adresse anschriftAlt;
-    private String telefonFestnetz;
-    private String telefonMobil;
-    private String email;
-    @Embedded
-    private Konto kontoverbindung;
-    private Mietobjekt gemietetesObjekt;
-    private String dokument;
+    protected Konto kontoverbindung;
+    protected Mietobjekt gemietetesObjekt;
+    protected String dokument;
     @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
     @JoinColumn(name="mietvertrag_id")
     protected Mietvertrag mietvertrag = null;
 
     public Mieter() { super(); }
 
-    public Mieter(String anrede, String vorname, String nachname, Adresse anschriftAlt, String telefonFestnetz, String telefonMobil, String email, Konto kontoverbindung, Mietobjekt gemietetesObjekt, String dokument) {
+    public Mieter(String anrede, String vorname, String nachname, String telefonFestnetz, String telefonMobil, String email, Konto kontoverbindung, Mietobjekt gemietetesObjekt, String dokument) {
         this.anrede = anrede;
         this.vorname = vorname;
         this.nachname = nachname;
-        this.anschriftAlt = anschriftAlt;
         this.telefonFestnetz = telefonFestnetz;
         this.telefonMobil = telefonMobil;
         this.email = email;
@@ -86,11 +84,13 @@ public class Mieter extends ModelTemplate{
         this.nachname = nachname;
     }
 
-    public Adresse getAnschriftAlt() {
-        return anschriftAlt;
+    public Adresse getAnschriftAlt() 
+    { 
+        if (anschriftAlt == null) { anschriftAlt = new Adresse(); }
+        return anschriftAlt; 
     }
 
-    public void setAnschriftAlt(Adresse anschriftAlt) {
+    public void setAnschrift(Adresse anschriftAlt) {
         this.anschriftAlt = anschriftAlt;
     }
 

@@ -8,6 +8,9 @@ import com.mycompany.model.enums.FinanzstatusTyp;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -17,6 +20,9 @@ import java.util.Date;
 @Embeddable
 public class Finanzstatus implements Serializable{
     
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    protected long id = -1L;
     @Enumerated(EnumType.STRING) 
     private FinanzstatusTyp finanzStatusTyp;
     private int betragEur;
@@ -29,7 +35,13 @@ public class Finanzstatus implements Serializable{
         this.betragEur = betragEur;
         this.datum = datum;
     }
+    
+    
+    public long getId() { return this.id; }
 
+    
+    public void setId(long id) { this.id = id; }
+    
     public FinanzstatusTyp getFinanzStatusTyp() {
         return finanzStatusTyp;
     }
