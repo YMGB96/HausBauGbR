@@ -29,7 +29,7 @@ public class Benutzer extends ModelTemplate {
     private String vorname;
     private String nachname;
     @Embedded
-    private Adresse anschrift = null;
+    private Adresse anschrift = new Adresse();
     private String telefonFestnetz;
     private String telefonMobil;
     private String email;

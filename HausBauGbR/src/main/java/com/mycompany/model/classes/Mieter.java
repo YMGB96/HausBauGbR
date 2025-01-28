@@ -28,7 +28,7 @@ public class Mieter extends ModelTemplate{
     protected String anrede;
     protected String vorname;
     protected String nachname;
-    protected Adresse anschriftAlt = new Adresse();;
+    protected Adresse anschriftAlt = new Adresse();
     protected String telefonFestnetz;
     protected String telefonMobil;
     protected String email;
