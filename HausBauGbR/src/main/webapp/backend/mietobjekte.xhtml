@@ -173,7 +173,10 @@
             <p:dataTable id="mietvertragTable" var="mietvertragItem" value="#{mietvertrag.itemList}" style="width: 100%;"> 
                 <p:column headerText="ID">
                     <b><h:outputText value="#{mietvertragItem.id}" /></b>          
-                </p:column>                             
+                </p:column>
+                <p:column headerText="Name">
+                    <b><h:outputText value="#{mietvertragItem.mieter.vorname} #{mietvertragItem.mieter.nachname}" /></b>          
+                </p:column> 
                 <p:column style="width: 110px; text-align: center;"> 
                     <p:commandLink action="#{mietvertrag.addMietobjekt(mietvertragItem, mietobjekt.item)}" update=":contentForm" oncomplete="PF('dlgMietvertrag').hide();" >
                         <i class="pi pi-plus"></i>
@@ -204,6 +207,9 @@
             <p:dataTable id="verantwortlichkeitenTable" var="verantwortlichkeitenItem" value="#{verantwortlichkeiten.itemList}" style="width: 100%;"> 
                 <p:column headerText="ID">
                     <b><h:outputText value="#{verantwortlichkeitenItem.id}" /></b>          
+                </p:column>
+                <p:column headerText="Name Ansprechpartner">
+                    <b><h:outputText value="#{verantwortlichkeitenItem.benutzer.vorname} #{verantwortlichkeitenItem.benutzer.nachname}" /></b>          
                 </p:column>
                 <p:column style="width: 110px; text-align: center;"> 
                     <p:commandLink action="#{verantwortlichkeiten.addMietobjekt(verantwortlichkeitenItem, mietobjekt.item)}" update=":contentForm" oncomplete="PF('dlgVerantwortlichkeiten').hide();" >
@@ -369,7 +375,7 @@
     </div>               
 </p:dialog>
         
-<p:dialog id="dokumentDialog" header="Reports" widgetVar="dlgDokument" modal="true" position="center,top" style="margin-top: 40px;">                  
+<p:dialog id="dokumentDialog" header="Dokumente" widgetVar="dlgDokument" modal="true" position="center,top" style="margin-top: 40px;">                  
     <div style="width: 650px; margin: 10px 10px 10px 10px;">
     <h:form id="dokumentModalDialogForm"> 
 
