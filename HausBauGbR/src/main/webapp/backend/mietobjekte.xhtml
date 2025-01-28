@@ -258,7 +258,7 @@
             .ownerStyle.ui-autocomplete input { width:470px; } 
         </style>       
         <p:menubar>
-            <p:menuitem value="Hinzuf&uuml;gen" icon="pi pi-plus" oncomplete="PF('dlgFinanzEingangEdit').show();" action="#{mietobjekt.resetItem()}" update=":editModalFinanzEingangDialogForm"/>                        
+            <p:menuitem value="Hinzuf&uuml;gen" icon="pi pi-plus" oncomplete="PF('dlgFinanzEingangEdit').show();" action="#{finanzstatus.resetItem()}" update=":editModalFinanzEingangDialogForm"/>                        
         </p:menubar>         
 
         <br/>
@@ -269,18 +269,18 @@
                 <b><h:outputText value="#{item.datum}" /></b>          
             </p:column> 
             <p:column headerText="Typ" style="width: 350px;">
-                <b><h:outputText value="#{item.finanzstatusTyp}" /></b>          
+                <b><h:outputText value="#{item.finanzStatusTyp}" /></b>          
             </p:column>                             
             <p:column headerText="Betrag">
                 <h:outputText value="#{item.betragEur} €" />   
             </p:column>
 
             <p:column style="width: 110px; text-align: center;">  
-                <p:commandLink oncomplete="PF('dlgFinanzEingangEdit').show();" action="#{mietobjekt.setItem(item)}" update=":editModalFinanzEingangDialogForm">
+                <p:commandLink oncomplete="PF('dlgFinanzEingangEdit').show();" action="#{finanzstatus.setItem(item)}" update=":editModalFinanzEingangDialogForm">
                     <i class="pi pi-wrench"></i>
                 </p:commandLink>    
                 &nbsp;
-                <p:commandLink action="#{mietobjekt.removeItem(item)}" update=":contentForm">
+                <p:commandLink action="#{finanzstatus.removeItem(item)}" update=":finanzenModalDialogForm">
                     <i class="pi pi-trash"></i>
                     <p:confirm header="Eintrag l&ouml;schen?" message="Sollen der Eintrag gel&ouml;scht werden?" icon="pi pi-exclamation-triangle" />
                 </p:commandLink>                                 
@@ -291,7 +291,7 @@
         <p:outputLabel value="#{finanzstatus.itemList.size()} Eintr&auml;ge gefunden." />
                                   
   
-        <p:commandButton value="Zuordnen" style="width: 120px;" action="#{finaznstatus.saveItem()}" oncomplete="PF('dlgFinanzen').hide();" update=":contentForm, messageBox"/>  
+        <p:commandButton value="Zuordnen" style="width: 120px;" action="#{finanzstatus.saveItem()}" oncomplete="PF('dlgFinanzen').hide();" update=":finanzenModalDialogForm, messageBox"/>  
         &nbsp;
         <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgFinanzen').hide();" immediate="true"/>  
     </h:form>                           
@@ -312,13 +312,22 @@
                 <p:outputLabel for="ip_id" value="ID"/>
                 <p:inputText id="ip_id" value="#{finanzstatus.item.id}" style="width: 100%;" disabled="true"/>
                 
+                <p:outputLabel for="ip_finanzStatusTyp" value="Zahlungstyp"/>
+                <p:selectOneMenu id="ip_finanzStatusTyp" value="#{finanzstatus.item.finanzStatusTyp}" disabled="true">
+                        <f:selectItem itemLabel="Zahlugnseingang" itemValue="ZAHLUNGSEINGANG"/>
+                </p:selectOneMenu>
+                
                 <p:outputLabel for="ip_betrag" value="Betrag in Euro"/>
                 <p:inputText id="ip_betrag" value="#{finanzstatus.item.betragEur}" style="width: 100%;"/>
+
+                <p:outputLabel for="ip_eingangdate" value="Datum:" />
+                <p:datePicker id="ip_eingangdate" value="#{finanzstatus.item.datum}" pattern="DD/MM/yyyy"/>
+                
             </p:panelGrid>   
         </p:scrollPanel>
         <br/><br/>                      
   
-        <p:commandButton value="Speichern" style="width: 120px;" action="#{finanzstatus.saveItem()}" oncomplete="PF('dlgFinanzEingangEdit').hide();" update=":contentForm, messageBox"/>
+        <p:commandButton value="Speichern" style="width: 120px;" action="#{finanzstatus.saveItem()}" oncomplete="PF('dlgFinanzEingangEdit').hide();" update=":finanzenModalDialogForm, messageBox"/>
         &nbsp;
         <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgFinanzEingangEdit').hide();" immediate="true"/>  
     </h:form>                           
