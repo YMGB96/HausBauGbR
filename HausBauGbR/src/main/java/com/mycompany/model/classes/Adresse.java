@@ -14,11 +14,11 @@ import java.io.Serializable;
 @Embeddable
 public class Adresse implements Serializable {
     
-    private String strasse;
-    private String hausnummer;
-    private String plz;
-    private String ort;
-    private String land;
+    protected String strasse = null;
+    protected String hausnummer = null;
+    protected String plz = null;
+    protected String ort = null;
+    protected String land = null;
     
     public Adresse() { super(); }
 

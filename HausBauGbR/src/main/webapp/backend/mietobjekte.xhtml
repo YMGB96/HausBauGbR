@@ -54,6 +54,18 @@
                                     <i class="pi pi-briefcase"></i>
                                 </p:commandLink>    
                                 &nbsp;
+                                <p:commandLink oncomplete="PF('dlgReport').show();" action="#{mietobjekt.setItem(item)}" update=":reportModalDialogForm">
+                                    <i class="pi pi-file-o"></i>
+                                </p:commandLink>    
+                                &nbsp;
+                                <p:commandLink oncomplete="PF('dlgFinanzen').show();" action="#{mietobjekt.setItem(item)}" update=":finanzenModalDialogForm">
+                                    <i class="pi pi-money-bill"></i>
+                                </p:commandLink>    
+                                &nbsp;
+                                <p:commandLink oncomplete="PF('dlgDokument').show();" action="#{mietobjekt.setItem(item)}" update=":dokumentModalDialogForm">
+                                    <i class="pi pi-paperclip"></i>
+                                </p:commandLink>    
+                                &nbsp;
                                 <p:commandLink action="#{mietobjekt.removeItem(item)}" update=":contentForm">
                                     <i class="pi pi-trash"></i>
                                     <p:confirm header="Eintrag l&ouml;schen?" message="Sollen der Eintrag gel&ouml;scht werden?" icon="pi pi-exclamation-triangle" />
@@ -112,6 +124,9 @@
 
                 <p:outputLabel for="ip_strasse" value="Straße"/>
                 <p:inputText id="ip_strasse" value="#{mietobjekt.item.anschrift.strasse}" style="width: 100%;"/>
+                
+                <p:outputLabel for="ip_hausnummer" value="Hausnummer"/>
+                <p:inputText id="ip_hausnummer" value="#{mietobjekt.item.anschrift.hausnummer}" style="width: 100%;"/>
                 
                 <p:outputLabel for="ip_plz" value="Postleitzahl"/>
                 <p:inputText id="ip_plz" value="#{mietobjekt.item.anschrift.plz}" style="width: 100%;"/>
@@ -205,7 +220,70 @@
         <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgVerantwortlichkeiten').hide();" immediate="true"/>  
     </h:form>                           
     </div>               
-</p:dialog>     
+</p:dialog>
+
+<p:dialog id="reportDialog" header="Reports" widgetVar="dlgReport" modal="true" position="center,top" style="margin-top: 40px;">                  
+    <div style="width: 650px; margin: 10px 10px 10px 10px;">
+    <h:form id="reportModalDialogForm"> 
+
+        <style type="text/css">
+            .ownerStyle.ui-autocomplete input { width:470px; } 
+        </style>       
+        
+        <p:scrollPanel mode="native" style="width:100%; height:500px;">   
+
+            
+        </p:scrollPanel>
+        <br/><br/>                      
+  
+        <p:commandButton value="Zuordnen" style="width: 120px;" action="#{mietobjekt.saveItem()}" oncomplete="PF('dlgReport').hide();" update=":contentForm, messageBox"/>  
+        &nbsp;
+        <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgReport').hide();" immediate="true"/>  
+    </h:form>                           
+    </div>               
+</p:dialog>
+
+<p:dialog id="finanzenDialog" header="Finanzen" widgetVar="dlgFinanzen" modal="true" position="center,top" style="margin-top: 40px;">                  
+    <div style="width: 650px; margin: 10px 10px 10px 10px;">
+    <h:form id="finanzenModalDialogForm"> 
+
+        <style type="text/css">
+            .ownerStyle.ui-autocomplete input { width:470px; } 
+        </style>       
+        
+        <p:scrollPanel mode="native" style="width:100%; height:500px;">   
+
+            
+        </p:scrollPanel>
+        <br/><br/>                      
+  
+        <p:commandButton value="Zuordnen" style="width: 120px;" action="#{mietobjekt.saveItem()}" oncomplete="PF('dlgFinanzen').hide();" update=":contentForm, messageBox"/>  
+        &nbsp;
+        <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgFinanzen').hide();" immediate="true"/>  
+    </h:form>                           
+    </div>               
+</p:dialog>    
+
+<p:dialog id="dokumentDialog" header="Reports" widgetVar="dlgDokument" modal="true" position="center,top" style="margin-top: 40px;">                  
+    <div style="width: 650px; margin: 10px 10px 10px 10px;">
+    <h:form id="dokumentModalDialogForm"> 
+
+        <style type="text/css">
+            .ownerStyle.ui-autocomplete input { width:470px; } 
+        </style>       
+        
+        <p:scrollPanel mode="native" style="width:100%; height:500px;">   
+
+            
+        </p:scrollPanel>
+        <br/><br/>                      
+  
+        <p:commandButton value="Zuordnen" style="width: 120px;" action="#{mietobjekt.saveItem()}" oncomplete="PF('dlgDokument').hide();" update=":contentForm, messageBox"/>  
+        &nbsp;
+        <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgDokument').hide();" immediate="true"/>  
+    </h:form>                           
+    </div>               
+</p:dialog>    
     </ui:define>
 
 </ui:composition>

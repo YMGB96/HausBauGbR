@@ -28,23 +28,22 @@ public class Mietobjekt extends ModelTemplate{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     protected long id = -1L; 
-    private int objektNr = 0;
+    protected int objektNr = 0;
     @Enumerated(EnumType.STRING) 
-    private MietobjektTyp objektTyp = null;
-    private boolean objektPrivat = true;
-    private String objektBeschreibung = null;
+    protected MietobjektTyp objektTyp = null;
+    protected boolean objektPrivat = true;
+    protected String objektBeschreibung = null;
+    protected Adresse anschrift = new Adresse();
+    protected int wohnflaeche = 0;
+    protected int m2PreisKalt = 0;
+    protected int nebenkostenGes = 0;
+    protected String notizfeld = null;
+    protected Mietobjekt verbundenesObjekt = null;
+    protected Mieter objektMieter = null;
+    protected Benutzer ansprechpartner = null;
     @Embedded
-    private Adresse anschrift = null;
-    private int wohnflaeche = 0;
-    private int m2PreisKalt = 0;
-    private int nebenkostenGes = 0;
-    private String notizfeld = null;
-    private Mietobjekt verbundenesObjekt = null;
-    private Mieter objektMieter = null;
-    private Benutzer ansprechpartner = null;
-    @Embedded
-    private Finanzstatus finanzstatus = null;
-    private String dokument = null;
+    protected Finanzstatus finanzstatus = null;
+    protected String dokument = null;
     @ManyToOne(fetch=FetchType.EAGER) // cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, 
     @JoinColumn(name="mietvertrag_id")
     protected Mietvertrag mietvertrag = null;
@@ -54,13 +53,12 @@ public class Mietobjekt extends ModelTemplate{
 
     public Mietobjekt() { super(); }
     
-    public Mietobjekt(int ObjektNr, MietobjektTyp objektTyp, Boolean objektPrivat, String objektBeschreibung, Adresse anschrift, int wohnflaeche, int m2PreisKalt, int nebenkostenGes, String notizfeld, String dokument) {
+    public Mietobjekt(int ObjektNr, MietobjektTyp objektTyp, Boolean objektPrivat, String objektBeschreibung, int wohnflaeche, int m2PreisKalt, int nebenkostenGes, String notizfeld, String dokument) {
         super();
         this.objektNr = ObjektNr;
         this.objektTyp = objektTyp;
         this.objektPrivat = objektPrivat;
         this.objektBeschreibung = objektBeschreibung;
-        this.anschrift = anschrift;
         this.wohnflaeche = wohnflaeche;
         this.m2PreisKalt = m2PreisKalt;
         this.nebenkostenGes = nebenkostenGes;
@@ -106,8 +104,10 @@ public class Mietobjekt extends ModelTemplate{
         this.objektBeschreibung = objektBeschreibung;
     }
 
-    public Adresse getAnschrift() {
-        return anschrift;
+    public Adresse getAnschrift() 
+    { 
+        if (anschrift == null) { anschrift = new Adresse(); }
+        return anschrift; 
     }
 
     public void setAnschrift(Adresse anschrift) {

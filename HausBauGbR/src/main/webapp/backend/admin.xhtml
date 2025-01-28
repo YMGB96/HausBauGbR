@@ -7,16 +7,127 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
 
+    <ui:define name="title">Benutzer</ui:define>
+    
     <ui:define name="content">
+        <style>   
+            .labelColumn { width: 115px; }
+            .imputColumn { width: 100%; } 
+        </style>              
+        
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="card">
-                    <h1>Admin</h1>
-                    <p>Blub.</p> 
+                    <h:form id="contentForm">
+                     
+                        <p:menubar>
+                            <p:menuitem value="Hinzuf&uuml;gen" icon="pi pi-plus" oncomplete="PF('dlgEdit').show();" action="#{benutzer.resetItem()}" update=":editModalDialogForm"/>
+                            <f:facet name="options">             
+                                <p:commandButton action="#{benutzer.doLogout()}" icon="pi pi-sign-out" style="font-size: 15px; height: 30px; width: 30px; margin-top: 3px; margin-left: 3px; vertical-align: middle;" />                                
+                            </f:facet>                        
+                        </p:menubar>         
+                        
+                        <br/>
+                        <h1 style="margin-top: 20px;"><i class="layout-menuitem-icon pi pi-fw pi-cog"></i>&nbsp;Benutzer</h1>
+                    
+                        <p:dataTable id="itemTable" var="item" value="#{benutzer.itemList}" style="width: 100%;">
+                            <p:column headerText="Name" style="width: 350px;">
+                                <b><h:outputText value="#{item.vorname} #{item.nachname}" /></b>          
+                            </p:column> 
+                            
+                            <p:column style="width: 110px; text-align: center;">  
+                                <p:commandLink oncomplete="PF('dlgEdit').show();" action="#{benutzer.setItem(item)}" update=":editModalDialogForm">
+                                    <i class="pi pi-wrench"></i>
+                                </p:commandLink>    
+                                &nbsp;
+                                <p:commandLink action="#{benutzer.removeItem(item)}" update=":contentForm">
+                                    <i class="pi pi-trash"></i>
+                                    <p:confirm header="Eintrag l&ouml;schen?" message="Sollen der Eintrag gel&ouml;scht werden?" icon="pi pi-exclamation-triangle" />
+                                </p:commandLink>                                 
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <br/><br/>  
+                        <p:outputLabel value="#{benutzer.itemList.size()} Eintr&auml;ge gefunden." />
+                    </h:form>
+                    <br/>
+                    <br/>    
+                     
                 </div>
             </div>
         </div>
         
+<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+</p:confirmDialog>           
+
+
+<p:dialog id="editDialog" header="Eintrag" widgetVar="dlgEdit" modal="true" position="center,top" style="margin-top: 40px;">                  
+    <div style="width: 650px; margin: 10px 10px 10px 10px;">
+    <h:form id="editModalDialogForm"> 
+
+        <style type="text/css">
+            .ownerStyle.ui-autocomplete input { width:470px; } 
+        </style>       
+        
+        <p:scrollPanel mode="native" style="width:100%; height:500px;">   
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" columnClasses="labelColumn, inputColumn" style="width: 100%; margin-bottom: 15px; margin-top: 15px;"> 
+
+                <p:outputLabel for="ip_id" value="ID"/>
+                <p:inputText id="ip_id" value="#{benutzer.item.id}" style="width: 100%;" disabled="true"/>
+                
+                <p:outputLabel for="ip_istAdmin" value="Admin?"/>
+                <p:selectBooleanCheckbox id="ip_istAdmin" value="#{benutzer.item.istAdmin}" itemLabel=""/>
+                
+                <p:outputLabel for="ip_vorname" value="Vorname"/>
+                <p:inputText id="ip_vorname" value="#{benutzer.item.vorname}" style="width: 100%;" required="true"  requiredMessage="Vorname ist erforderlich"/>
+
+                <p:outputLabel for="ip_nachname" value="Nachname"/>
+                <p:inputText id="ip_nachname" value="#{benutzer.item.nachname}" style="width: 100%;" required="true"  requiredMessage="Nachname ist erforderlich"/>
+
+                <p:outputLabel for="ip_strasse" value="Strasse"/>
+                <p:inputText id="ip_strasse" value="#{benutzer.item.anschrift.strasse}" style="width: 100%;"/>
+
+                <p:outputLabel for="ip_hausnummer" value="Hausname"/>
+                <p:inputText id="ip_hausnummer" value="#{benutzer.item.anschrift.hausnummer}" style="width: 100%;"/>
+
+                <p:outputLabel for="ip_plz" value="PLZ"/>
+                <p:inputText id="ip_plz" value="#{benutzer.item.anschrift.plz}" style="width: 100%;"/>
+
+                <p:outputLabel for="ip_ort" value="Ort"/>
+                <p:inputText id="ip_ort" value="#{benutzer.item.anschrift.ort}" style="width: 100%;"/>
+
+                <p:outputLabel for="ip_land" value="Land"/>
+                <p:inputText id="ip_land" value="#{benutzer.item.anschrift.land}" style="width: 100%;"/>
+
+                <p:outputLabel for="ip_festnetz" value="Festnetz"/>
+                <p:inputText id="ip_festnetz" value="#{benutzer.item.telefonFestnetz}" style="width: 100%;"/>
+
+                <p:outputLabel for="ip_mobil" value="Mobil"/>
+                <p:inputText id="ip_mobil" value="#{benutzer.item.telefonMobil}" style="width: 100%;"/>
+
+                <p:outputLabel for="ip_email" value="EMail"/>
+                <p:inputText id="ip_email" value="#{benutzer.item.email}" style="width: 100%;"/>
+
+                <p:outputLabel for="ip_user" value="Benutzername"/>
+                <p:inputText id="ip_user" value="#{benutzer.item.benutzerName}" style="width: 100%;" required="true"  requiredMessage="Benutzername ist erforderlich"/>
+
+                <p:outputLabel for="ip_passwort" value="Passwort"/>
+                <p:inputText id="ip_passwort" value="#{benutzer.item.passwort}" style="width: 100%;" required="true"  requiredMessage="Passwort ist erforderlich"/>            
+            </p:panelGrid>   
+        </p:scrollPanel>
+        <br/><br/>                      
+  
+        <p:commandButton value="Speichern" style="width: 120px;" action="#{mietobjekt.saveItem()}" oncomplete="PF('dlgEdit').hide();" update=":contentForm, messageBox"/>
+        &nbsp;
+        <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgEdit').hide();" immediate="true"/>  
+    </h:form>                           
+    </div>               
+</p:dialog>     
+  
+        
+
     </ui:define>
 
 </ui:composition>
