@@ -173,7 +173,10 @@
             <p:dataTable id="mietvertragTable" var="mietvertragItem" value="#{mietvertrag.itemList}" style="width: 100%;"> 
                 <p:column headerText="ID">
                     <b><h:outputText value="#{mietvertragItem.id}" /></b>          
-                </p:column>                             
+                </p:column>
+                <p:column headerText="Name">
+                    <b><h:outputText value="#{mietvertragItem.mieter.vorname} #{mietvertragItem.mieter.nachname}" /></b>          
+                </p:column> 
                 <p:column style="width: 110px; text-align: center;"> 
                     <p:commandLink action="#{mietvertrag.addMietobjekt(mietvertragItem, mietobjekt.item)}" update=":contentForm" oncomplete="PF('dlgMietvertrag').hide();" >
                         <i class="pi pi-plus"></i>
@@ -204,6 +207,9 @@
             <p:dataTable id="verantwortlichkeitenTable" var="verantwortlichkeitenItem" value="#{verantwortlichkeiten.itemList}" style="width: 100%;"> 
                 <p:column headerText="ID">
                     <b><h:outputText value="#{verantwortlichkeitenItem.id}" /></b>          
+                </p:column>
+                <p:column headerText="Name Ansprechpartner">
+                    <b><h:outputText value="#{verantwortlichkeitenItem.benutzer.vorname} #{verantwortlichkeitenItem.benutzer.nachname}" /></b>          
                 </p:column>
                 <p:column style="width: 110px; text-align: center;"> 
                     <p:commandLink action="#{verantwortlichkeiten.addMietobjekt(verantwortlichkeitenItem, mietobjekt.item)}" update=":contentForm" oncomplete="PF('dlgVerantwortlichkeiten').hide();" >
@@ -258,7 +264,8 @@
             .ownerStyle.ui-autocomplete input { width:470px; } 
         </style>       
         <p:menubar>
-            <p:menuitem value="Hinzuf&uuml;gen" icon="pi pi-plus" oncomplete="PF('dlgFinanzEingangEdit').show();" action="#{finanzstatus.resetItem()}" update=":editModalFinanzEingangDialogForm"/>                        
+            <p:menuitem value="Einzahlung Hinzuf&uuml;gen" icon="pi pi-plus" oncomplete="PF('dlgFinanzEingangEdit').show();" action="#{finanzstatus.resetItem()}" update=":editModalFinanzEingangDialogForm"/>
+            <p:menuitem value="Soll Hinzuf&uuml;gen" icon="pi pi-plus" oncomplete="PF('dlgFinanzSollEdit').show();" action="#{finanzstatus.resetItem()}" update=":editModalFinanzSollDialogForm"/>  
         </p:menubar>         
 
         <br/>
@@ -313,8 +320,8 @@
                 <p:inputText id="ip_id" value="#{finanzstatus.item.id}" style="width: 100%;" disabled="true"/>
                 
                 <p:outputLabel for="ip_finanzStatusTyp" value="Zahlungstyp"/>
-                <p:selectOneMenu id="ip_finanzStatusTyp" value="#{finanzstatus.item.finanzStatusTyp}" disabled="true">
-                        <f:selectItem itemLabel="Zahlugnseingang" itemValue="ZAHLUNGSEINGANG"/>
+                <p:selectOneMenu id="ip_finanzStatusTyp" value="#{finanzstatus.item.finanzStatusTyp}">
+                    <f:selectItem itemLabel="Zahlungseingang" itemValue="ZAHLUNGSEINGANG"/>
                 </p:selectOneMenu>
                 
                 <p:outputLabel for="ip_betrag" value="Betrag in Euro"/>
@@ -333,8 +340,42 @@
     </h:form>                           
     </div>               
 </p:dialog>   
+ 
+        <p:dialog id="editFinanzSollDialog" header="Eintrag" widgetVar="dlgFinanzSollEdit" modal="true" position="center,top" style="margin-top: 40px;">                  
+    <div style="width: 650px; margin: 10px 10px 10px 10px;">
+    <h:form id="editModalFinanzSollDialogForm"> 
+
+        <style type="text/css">
+            .ownerStyle.ui-autocomplete input { width:470px; } 
+        </style>       
         
-<p:dialog id="dokumentDialog" header="Reports" widgetVar="dlgDokument" modal="true" position="center,top" style="margin-top: 40px;">                  
+        <p:scrollPanel mode="native" style="width:100%; height:500px;">   
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" columnClasses="labelColumn, inputColumn" style="width: 100%; margin-bottom: 15px; margin-top: 15px;"> 
+
+                <p:outputLabel for="ip_id" value="ID"/>
+                <p:inputText id="ip_id" value="#{finanzstatus.item.id}" style="width: 100%;" disabled="true"/>
+                
+                <p:outputLabel for="ip_finanzStatusTyp" value="Zahlungstyp"/>
+                <p:selectOneMenu id="ip_finanzStatusTyp" value="#{finanzstatus.item.finanzStatusTyp}">
+                        <f:selectItem itemLabel="Mietkostenabrechnung" itemValue="MIETKOSTENABRECHNUNG"/>
+                        <f:selectItem itemLabel="Nebenkostenabrechnung" itemValue="NEBENKOSTENABRECHNUNG"/>
+                </p:selectOneMenu>
+                
+                <p:outputLabel for="ip_solldate" value="Datum:" />
+                <p:datePicker id="ip_solldate" view="month" value="#{finanzstatus.item.datum}" pattern="MM/yyyy" yearNavigator="true" yearRange="1900:2099" />
+                
+            </p:panelGrid>   
+        </p:scrollPanel>
+        <br/><br/>                      
+  
+        <p:commandButton value="Speichern" style="width: 120px;" action="#{finanzstatus.saveItem()}" oncomplete="PF('dlgFinanzSollEdit').hide();" update=":finanzenModalDialogForm, messageBox"/>
+        &nbsp;
+        <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgFinanzSollEdit').hide();" immediate="true"/>  
+    </h:form>                           
+    </div>               
+</p:dialog>
+        
+<p:dialog id="dokumentDialog" header="Dokumente" widgetVar="dlgDokument" modal="true" position="center,top" style="margin-top: 40px;">                  
     <div style="width: 650px; margin: 10px 10px 10px 10px;">
     <h:form id="dokumentModalDialogForm"> 
 
