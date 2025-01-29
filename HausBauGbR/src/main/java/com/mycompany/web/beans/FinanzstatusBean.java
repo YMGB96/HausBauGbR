@@ -29,4 +29,9 @@ public class FinanzstatusBean extends BeanTemplate<Finanzstatus, ServiceTemplate
     { 
         resetItem(); 
     }
+    public void saveFinanzStatusItem () {
+        if (getItem().getDatum() != null) {
+            saveItem();
+        }
+    }
 }
