@@ -14,11 +14,15 @@ import com.mycompany.services.ServiceTemplate;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named; 
+import java.util.Date;
 
 @Named(value = "mietobjekt")
 @ViewScoped
 public class MietobjektBean extends BeanTemplate<Mietobjekt, ServiceTemplate<Mietobjekt, MietobjektDao<Mietobjekt>>>
 {
+    
+    private Date startMonth;
+    private Date endMonth;
   //-------------------------------------------------------------------------
   //  Constructor(s)
   //-------------------------------------------------------------------------     
@@ -29,4 +33,22 @@ public class MietobjektBean extends BeanTemplate<Mietobjekt, ServiceTemplate<Mie
     { 
         resetItem(); 
     }
+
+    public Date getStartMonth() {
+        return startMonth;
+    }
+
+    public void setStartMonth(Date startMonth) {
+        this.startMonth = startMonth;
+    }
+
+    public Date getEndMonth() {
+        return endMonth;
+    }
+
+    public void setEndMonth(Date endMonth) {
+        this.endMonth = endMonth;
+    }
+    
+    
 }
