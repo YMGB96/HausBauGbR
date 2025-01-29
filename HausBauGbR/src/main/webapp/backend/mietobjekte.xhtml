@@ -233,17 +233,17 @@
         <p:panel style="width:100%; height:500px;" header="Zeitraum">   
             <div class="field col-12 md:col-4">
                 <p:outputLabel for="startMonth" value="Von?     " />
-                <p:datePicker id="startMonth" view="month" value="" pattern="MM/yyyy" yearNavigator="true" yearRange="1900:2099" />
+                <p:datePicker id="startMonth" view="month" value="#{mietobjekt.startMonth}" pattern="MM/yyyy" yearNavigator="true" yearRange="1900:2099" />
             </div>
             <div class="field col-12 md:col-4">
                 <p:outputLabel for="endMonth" value="Bis?       " />
-                <p:datePicker id="endMonth" view="month" value="" pattern="MM/yyyy" yearNavigator="true" yearRange="1900:2099" />
+                <p:datePicker id="endMonth" view="month" value="#{mietobjekt.endMonth}" pattern="MM/yyyy" yearNavigator="true" yearRange="1900:2099" />
             </div>
             
         </p:panel>
         <br/><br/>                      
   
-        <p:commandButton value="Report erstellen" style="width: 120px;" oncomplete="PF('dlgReport').hide();" update=":contentForm, messageBox"/>  
+        <p:commandButton value="Report erstellen" style="width: 120px;" action="#{mietobjekt.createReport()}" oncomplete="PF('dlgReport').hide();" update=":contentForm, messageBox"/>  
         &nbsp;
         <p:commandButton value="Schlie&szlig;en" style="width: 120px;" onclick="PF('dlgReport').hide();" immediate="true"/>  
     </h:form>                           
