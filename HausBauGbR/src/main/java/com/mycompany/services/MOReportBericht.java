@@ -4,19 +4,10 @@
  */
 package com.mycompany.services;
 
-import com.mycompany.dao.MietobjektDao;
 import com.mycompany.model.classes.Mietobjekt;
-import jakarta.persistence.Parameter;
-import jakarta.ws.rs.PUT;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import jdk.nashorn.api.tree.TryTree;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
