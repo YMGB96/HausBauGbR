@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EinnahmenUebersicht" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f1b938d-562a-472b-a893-800d302e96f9">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="TestGesamt"/>
+	<parameter name="EinnahmeVon" class="java.sql.Date"/>
+	<parameter name="EinnahmeBis" class="java.sql.Date"/>
+	<queryString language="csv">
+		<![CDATA[]]>
+	</queryString>
+	<field name="Straße" class="java.lang.String"/>
+	<field name="ObjNr" class="java.lang.String"/>
+	<field name="Ort" class="java.lang.String"/>
+	<field name="ZahlungIst" class="java.math.BigDecimal"/>
+	<field name="ZahlungSoll" class="java.math.BigDecimal"/>
+	<field name="FehlBetrag" class="java.math.BigDecimal"/>
+	<variable name="Wohnung" class="java.lang.String" calculation="Sum">
+		<variableExpression><![CDATA[$F{Straße} + "," + $F{Ort} + " " + $F{ObjNr}]]></variableExpression>
+		<initialValueExpression><![CDATA[""]]></initialValueExpression>
+	</variable>
+	<variable name="SumZahlungIst" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ZahlungIst}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="SumZahlungSoll" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ZahlungSoll}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="SumFehlBetrag" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{FehlBetrag}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="3" width="100" height="48" uuid="3613c797-d789-438a-abb8-0bdab6f71cca"/>
+				<text><![CDATA[Hausbau GBR
+Muster Straße 123
+1234 Düsseldorf]]></text>
+			</staticText>
+			<image>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="50" height="50" uuid="a4b10dbe-82cc-4796-b51b-ea2626a44a1a"/>
+				<imageExpression><![CDATA["C:/Users/masou/Pictures/HausBau_GbR.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="60" y="3" width="100" height="48" uuid="0989f7c8-4ef8-4ac0-92c8-af7364158744"/>
+				<text><![CDATA[Hausbau GBR
+Muster Straße 123
+1234 Düsseldorf]]></text>
+			</staticText>
+			<image>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="50" height="50" uuid="978f9cea-013f-4ea9-833b-e0c050f1bbd4"/>
+				<imageExpression><![CDATA["C:/Users/masou/Pictures/HausBau_GbR.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="15" forecolor="#488ADB" uuid="b2e16fcd-f37d-4302-bbfa-0164efb5e14f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Cooper Black" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gesamtbericht]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="277" y="15" width="100" height="14" uuid="402ed598-52b7-4723-8b53-c6eb90adaa42"/>
+				<textFieldExpression><![CDATA[$P{EinnahmeBis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="15" width="90" height="14" uuid="906b8ae3-9965-47fe-8166-4941e2f0204f"/>
+				<textFieldExpression><![CDATA[$P{EinnahmeVon}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="15" width="186" height="14" forecolor="#488ADB" uuid="77805641-3fe6-404c-bcdc-b52d46e526b8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Einnahmen aller Objekte für Zeitraum ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="35" width="559" height="20" backcolor="rgba(100, 201, 232, 0.23137255)" uuid="52038cb8-885a-4641-b46a-54accca37c21"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Einnahmenübersicht]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="0" width="120" height="30" backcolor="#E8E8E8" uuid="c5da872e-3b2b-4d6a-b3ed-6f4e769d6dfe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c7b86bbc-5e43-4ad0-a222-7ad3dbc9977d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ZahlungIst]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="350" y="0" width="110" height="30" backcolor="#E8E8E8" uuid="875aec9e-6df6-4a48-9a85-5c1920e4add2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c42dc46-d4c7-4a16-8efa-a77fc4d71b2c"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ZahlungSoll]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="460" y="0" width="95" height="30" backcolor="#E8E8E8" uuid="c7127d69-f879-413b-995d-1052465dcf14">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4be3c6a5-f026-4165-8c69-9a63e6710b55"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FehlBeträge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="0" width="229" height="30" backcolor="#E8E8E8" uuid="62c0a15a-fc8e-49af-b26b-a3111c5091e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Wohnung OBJ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="229" height="20" uuid="9a421296-a329-45d2-9e2d-49f382504142"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{Wohnung}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="120" height="20" uuid="bce31cd5-1cb7-412c-922e-2b0ebf338560">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c7b86bbc-5e43-4ad0-a222-7ad3dbc9977d"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ZahlungIst}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="110" height="20" uuid="dcd05e24-a9de-4f8b-ac50-3a9dbb5dcbb8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c42dc46-d4c7-4a16-8efa-a77fc4d71b2c"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ZahlungSoll}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="95" height="20" uuid="478cd6d6-ecf7-485f-b9a9-518e08adfc15">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4be3c6a5-f026-4165-8c69-9a63e6710b55"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FehlBetrag}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="10" width="229" height="30" uuid="2cb696cc-6b5e-4ac1-9089-98e0c88b4b28"/>
+				<text><![CDATA[Gesamt]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="230" y="10" width="120" height="30" uuid="a3a5ce37-5227-476b-9bfb-4f1e0f31f0f6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumZahlungIst}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="10" width="110" height="30" uuid="4bfd9a36-6282-4a93-85a2-e4d0409c5031"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumZahlungSoll}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="10" width="99" height="30" uuid="f61ae0f0-230a-4bf1-bc2f-10df8476b77f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumFehlBetrag}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="10" width="100" height="30" uuid="f8ebe639-17cc-47c1-8435-f6060d45bcf8"/>
+				<textFieldExpression><![CDATA["Page " +  $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
